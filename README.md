@@ -1,6 +1,16 @@
-# node-js-sample
+# nodejs-mongodb-restfull
 
-sample.
+##Running 
+
+```sh
+git clone github.com/johnathansantos/nodejs-mongodb-restfull.git # or clone your own fork
+cd nodejs-mongodb-restfull
+npm install
+npm start
+```
+
+Your app should now be running on [localhost:5000](http://localhost:5000/).
+
 <!-- A barebones Node.js app using [Express 4](http://expressjs.com/). -->
 <!-- 
 ## Running Locally

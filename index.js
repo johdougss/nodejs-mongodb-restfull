@@ -21,11 +21,12 @@ app.namespace('/api', function(){
 	require('./routes/users').routes(app, db, dbUri);
 })
 
+app.use(express.static(__dirname + '/public'))
+
 app.listen(config.server.port);
 // var addr = app.listen(config.server.port).address();
 // console.log('app listening on http://' + addr.address + ':' + addr.port);
 // var open = require('open');
 // open('http://'+ addr.address + ':' + addr.port);
 
-app.use(express.static(__dirname + '/public'))
 
