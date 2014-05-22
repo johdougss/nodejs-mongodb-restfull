@@ -19,7 +19,7 @@ app.namespace('/api', function(){
 	require('./routes/users').routes(app, db, config);
 })
 
-var listen = app.listen(config.server.port);
+app.listen(config.server.port);
 // var addr = app.listen(config.server.port).address();
 // console.log('app listening on http://' + addr.address + ':' + addr.port);
 // var open = require('open');
