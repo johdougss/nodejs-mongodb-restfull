@@ -84,7 +84,7 @@ exports.routes = function(app, dbclient, dbUri) {
                 var doc = {_id:doc_id, a:1};
 
                 var collection = db.collection(collection_name);
-                collection.update({"_id":id}, doc, {upsert:true, w: 1}, function(err, result) {
+                collection.update({"_id":doc_id}, doc, {upsert:true, w: 1}, function(err, result) {
                     var responseJson = result==1? {msg:'sucess'}: {msg:'error: '+err};  
                     res.json(responseJson);  
                 })
