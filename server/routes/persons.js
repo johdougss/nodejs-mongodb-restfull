@@ -2,7 +2,7 @@
 exports.routes = function(app, dbclient, dbUri) {
     var ObjectID = require('mongodb').ObjectID;
 
-    var collection_name = 'users';
+    var collection_name = 'persons';
     app.namespace('/'+collection_name, function(){
         app.get('/',function(req,res){
             dbclient.connect(dbUri, function(err, db) {
