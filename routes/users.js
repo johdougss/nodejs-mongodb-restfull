@@ -46,15 +46,13 @@
 // var router = express.Router();
 
 
-exports.routes = function(app, db, config) {
-  
+exports.routes = function(app, dbclient, dbUri) {
     var ObjectID = require('mongodb').ObjectID;
-
 
     var collection_name = 'users';
     app.namespace('/'+collection_name, function(){
         app.get('/',function(req,res){
-            db.connect(config.db.uri, function(err, db) {
+            dbclient.connect(dbUri, function(err, db) {
                 var collection = db.collection(collection_name);
                 collection.find({}).toArray(function(err, docs) {
                     res.json(docs)
@@ -63,7 +61,7 @@ exports.routes = function(app, db, config) {
         })
         app.get('/:id', function(req, res) {
             var doc_id = req.params.id;
-            db.connect(config.db.uri, function(err, db) {
+            dbclient.connect(dbUri, function(err, db) {
                 var collection = db.collection(collection_name);
                 collection.findOne({_id: new ObjectID(doc_id)}, function(err, doc){
                     res.json(doc)
@@ -72,7 +70,7 @@ exports.routes = function(app, db, config) {
         })
         app.delete('/:id', function(req, res) {
             var doc_id = req.params.id;
-            db.connect(config.db.uri, function(err, db) {
+            dbclient.connect(dbUri, function(err, db) {
                 var collection = db.collection(collection_name);
                 collection.remove({_id: new ObjectID(doc_id)}, function(err, result){
                   var responseJson = result==1? {msg:'sucess'}: {msg:'error: '+err};  
@@ -82,15 +80,17 @@ exports.routes = function(app, db, config) {
         })
         app.put('/:id', function(req, res) {
             var doc_id = req.params.id;
-            db.connect(config.db.uri, function(err, db) {
+            dbclient.connect(dbUri, function(err, db) {
+                var doc = {_id:doc_id, a:1};
+
                 var collection = db.collection(collection_name);
-                collection.remove({_id: new ObjectID(doc_id)}, function(err, result){
-                  var responseJson = result==1? {msg:'sucess'}: {msg:'error: '+err};  
-                  res.json(responseJson);  
-              })
+                collection.update({"_id":id}, doc, {upsert:true, w: 1}, function(err, result) {
+                    var responseJson = result==1? {msg:'sucess'}: {msg:'error: '+err};  
+                    res.json(responseJson);  
+                })
             })
         })
     })
-   
+
 
 };

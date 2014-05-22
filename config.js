@@ -4,7 +4,6 @@ module.exports = {
 		// uri: 'mongodb://localhost/vendaconvite'
 	},
 	server:{
-		port : 5000,
-		hostname: 'api.example.com'
+		port : 5000
 	}
 }
